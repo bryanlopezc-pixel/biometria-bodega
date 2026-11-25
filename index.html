@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biometría Aplicada — Control de Acceso Bodega</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <svg class="logo-svg" viewBox="0 0 250 66" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Biometría Aplicada">
+          <path d="M27 8C16.5 8 8 16.5 8 27" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M34 9.5C39.5 11.5 43.8 16 45.2 21.8" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M27 14C19.8 14 14 19.8 14 27V31" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M33 15C37.5 16.8 40.5 21 40.5 26" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M27 20C23.1 20 20 23.1 20 27V35" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M27 25.5C26.2 25.5 25.5 26.2 25.5 27V38.5" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M31.5 22.5C33.8 24.2 35 27 35 30V37" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M10.5 33C11 38.5 13.5 43.2 17.5 46.5" stroke="#111111" stroke-width="3.2" stroke-linecap="round"/>
+
+          <text x="58" y="39" fill="#FF5500" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="34" font-weight="900" letter-spacing="1">BA</text>
+          <text x="7" y="59" fill="#111111" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="11.5" font-weight="800" letter-spacing="0.6">BIOMETRÍA APLICADA</text>
+        </svg>
+
+        <div class="divider-v"></div>
+
+        <div class="brand-title">
+          <h1>Control de Acceso — Bodega</h1>
+          <p>Registro de eventos en tiempo real · Google Sheets</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span class="status-pill" id="estadoSync">Sin actualizar</span>
+        <button id="btnToggleClave" type="button">Contraseña</button>
+        <button class="primary" id="btnActualizar" type="button">Actualizar ahora</button>
+      </div>
+    </header>
+
+    <section class="auth-box" id="authBox">
+      <div class="auth-fields">
+        <input
+          type="password"
+          id="tokenApi"
+          placeholder="Ingresa la contraseña de acceso"
+          autocomplete="current-password"
+        />
+        <button class="primary" id="btnIngresar" type="button">Ingresar</button>
+        <button id="btnOlvidar" type="button">Olvidar clave</button>
+      </div>
+    </section>
+
+    <div id="mensajeAlerta" class="alert-banner"></div>
+
+    <section class="stats">
+      <div class="stat-card">
+        <div class="label">Permitidos</div>
+        <div class="value" id="cntPermitidos">0</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="label">Denegados Horario</div>
+        <div class="value" id="cntDenegadoHorario">0</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="label">Denegados Usuario</div>
+        <div class="value" id="cntDenegadoUsuario">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Aperturas Remotas</div>
+        <div class="value" id="cntRemotos">0</div>
+      </div>
+    </section>
+
+    <section class="filters">
+      <div class="filters-left">
+        <input type="text" id="filtroTexto" placeholder="Buscar usuario o ID..." />
+        <select id="filtroOrigen">
+          <option value="">Todos los orígenes</option>
+          <option value="WIEGAND">WIEGAND</option>
+          <option value="RAINMAKER">RAINMAKER</option>
+        </select>
+        <select id="filtroEstado">
+          <option value="">Todos los estados</option>
+          <option value="PERMITIDO">PERMITIDO</option>
+          <option value="DENEGADO_HORARIO">DENEGADO_HORARIO</option>
+          <option value="DENEGADO_USUARIO">DENEGADO_USUARIO</option>
+        </select>
+      </div>
+      <button id="btnExportarCsv" type="button">Exportar CSV</button>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha / Hora</th>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Origen</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla">
+          <tr><td colspan="5">Ingresa la contraseña para ver el historial.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <span class="ba-accent">Biometría Aplicada</span> · Control de Acceso Bodega
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
